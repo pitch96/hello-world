@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<title>JS_CRUD</title>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<style>
+    li {
+        display: flex;
+        height: 25px;
+        align-items: center;
+    }
+    li p{
+        width: 120px;
+    }
+    li button{
+        margin: 5px;
+    }
+    #spoiler{
+    display: none;
+   }
+</style>
+
+<body style=" font-size: 120%; ">
+    <form>
+        <input type="text" id="add" placeholder="New Country">&ensp;
+        <input type="button" onclick="addfunction()" value="Add"><br>
+        <div id="spoiler">
+            <input type="text" id="edit">&ensp;
+            <input type="button" onclick="editfunction()" value="Edit"><br>
+        </div>
+    </form>
+    <p id="number_countries"></p>
+    <ol id="myList" style="list-style-type:none ;">
+    </ol>
+
+    <script>
+        function addfunction() {
+            let textInput = document.getElementById("add");
+            if (textInput.value !== "") {
+                let node = document.createElement("LI");
+                let p=document.createElement("p");
+                p.appendChild(document.createTextNode(textInput.value));
+                textInput.value = "";
+                node.appendChild(p);
+                let editbutton = document.createElement("button");
+                editbutton.innerHTML = "Edit";
+                editbutton.onclick=function(){
+                    document.getElementById('spoiler').style.display='block';
+                    let trueedit=document.getElementById('edit');
+                    trueedit.value=textInput.value;
+                    this.parentElement.remove();
+                    document.getElementById("number_countries").innerHTML = document.getElementById("myList").getElementsByTagName("li").length + ' countries';
+                };
+                node.appendChild(editbutton);
+                let deletebutton = document.createElement("button");
+                deletebutton.innerHTML = "Delete";
+                deletebutton.onclick=function(){
+                    this.parentElement.remove();
+                    document.getElementById("number_countries").innerHTML = document.getElementById("myList").getElementsByTagName("li").length + ' countries';
+                };
+                node.appendChild(deletebutton);
+                document.getElementById("myList").appendChild(node);
+                document.getElementById("number_countries").innerHTML = document.getElementById("myList").getElementsByTagName("li").length + ' countries';
+            } else {
+                alert("Enter country's name!!")
+            }
+        }
+        function editfunction(){
+            let edit=document.getElementById('edit');
+            if (edit.value !== "") {
+                let node = document.createElement("LI");
+                let p=document.createElement("p");
+                p.appendChild(document.createTextNode(edit.value));
+                edit.value = "";
+                node.appendChild(p);
+                let editbutton = document.createElement("button");
+                editbutton.innerHTML = "Edit";
+                editbutton.onclick=function(){
+                    document.getElementById('spoiler').style.display='block';
+                    let trueedit=document.getElementById('edit');
+                    trueedit.value=textInput.value;  
+                };
+                node.appendChild(editbutton);
+                let deletebutton = document.createElement("button");
+                deletebutton.innerHTML = "Delete";
+                deletebutton.onclick=function(){
+                    this.parentElement.remove();
+                    document.getElementById("number_countries").innerHTML = document.getElementById("myList").getElementsByTagName("li").length + ' countries';
+                };
+                node.appendChild(deletebutton);
+                document.getElementById("myList").appendChild(node);
+                document.getElementById("number_countries").innerHTML = document.getElementById("myList").getElementsByTagName("li").length + ' countries';
+            }
+                 document.getElementById('spoiler').style.display='none';
+        }
+
+    </script>
+</body>
